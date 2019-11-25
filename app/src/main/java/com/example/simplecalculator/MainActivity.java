@@ -17,6 +17,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     int  dotCount = 0;
     boolean operator = false ;
     double textViewValue ;
+    String d ;
 
 
 
@@ -42,8 +43,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Button minusButton =(Button) findViewById(R.id.minusButton) ;
         Button multiplyButton =(Button) findViewById(R.id.multiplyButton) ;
         Button divisionButton =(Button) findViewById(R.id.divisionButton) ;
-        Button rightParantheButton =(Button) findViewById(R.id.rightParenthesButton) ;
-        Button leftParantheButton =(Button) findViewById(R.id.leftParenthesButton) ;
+        //Button rightParantheButton =(Button) findViewById(R.id.rightParenthesButton) ;
+       // Button leftParantheButton =(Button) findViewById(R.id.leftParenthesButton) ;
         Button dotButton =(Button) findViewById(R.id.dotButton) ;
         Button deleteButton = (Button) findViewById(R.id.delButton) ;
         Button clearButton = (Button) findViewById(R.id.clrButton) ;
@@ -151,12 +152,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String s= (String) resultTextView.getText().toString();
-                String r="";
                 try{
+                    String s=  resultTextView.getText().toString();
+                    String r="";
                     double n = Double.parseDouble(s);
                     if(!s.isEmpty()){
-                        String d = s.substring(s.length()-1);
+                         d = s.substring(s.length()-1);
                         if(d.equals(".")){
                             dotCount--;
                         }
@@ -165,7 +166,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     resultTextView.setText(r);
                 }catch (NumberFormatException e){
-                    resultTextView.setText("");
+
+                    String s=  resultTextView.getText().toString();
+                    if(!s.isEmpty()){
+                        d = s.substring(s.length()-1);
+                        if(d.equals("+")||d.equals("-")||d.equals("*")||d.equals("/")){
+                            resultTextView.setText(s.substring(0,s.length()-1));
+                            operator=true;
+                        }
+                        else{
+                            resultTextView.setText("");
+                        }
+                    }
+                    else{
+                        resultTextView.setText("");
+
+                    }
+
                 }
 
             }
@@ -185,8 +202,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         minusButton.setOnClickListener(this);
         divisionButton.setOnClickListener(this);
         multiplyButton.setOnClickListener(this);
-        rightParantheButton.setOnClickListener(this);
-        leftParantheButton.setOnClickListener(this);
+       // rightParantheButton.setOnClickListener(this);
+        //leftParantheButton.setOnClickListener(this);
         dotButton.setOnClickListener(this);
         //memoryButton.setOnClickListener(this);
 
@@ -222,7 +239,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         }
 
-        else if(isoperator(button.getText().toString()) && !(button.getId()==R.id.rightParenthesButton) && !(button.getId()==R.id.leftParenthesButton)){
+        else if(isoperator(button.getText().toString())){
             if(! operator){
                 boolean freeze = true ;
             }
